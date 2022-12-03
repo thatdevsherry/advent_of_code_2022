@@ -111,21 +111,21 @@ mod tests {
 
     #[test]
     fn should_win_all() {
-        let file_path = "./inputs/day_2/mocks/win.txt";
+        let file_path = "./inputs/day_2/mocks/first_part/win.txt";
         let result = get_score_according_to_strategy_guide(file_path);
         assert_eq!(result, "24");
     }
 
     #[test]
     fn should_lose_all() {
-        let file_path = "./inputs/day_2/mocks/lose.txt";
+        let file_path = "./inputs/day_2/mocks/first_part/lose.txt";
         let result = get_score_according_to_strategy_guide(file_path);
         assert_eq!(result, "6");
     }
 
     #[test]
     fn should_draw() {
-        let file_path = "./inputs/day_2/mocks/draw.txt";
+        let file_path = "./inputs/day_2/mocks/first_part/draw.txt";
         let result = get_score_according_to_strategy_guide(file_path);
         assert_eq!(result, "15");
     }
