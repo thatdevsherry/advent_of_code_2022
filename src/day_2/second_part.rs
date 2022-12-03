@@ -18,26 +18,6 @@ impl Choice {
             Self::Scissors => 3,
         }
     }
-
-    fn my_outcome_for_round(my_choice: &Choice, elf_choice: &Choice) -> Outcome {
-        match my_choice {
-            Choice::Rock => match elf_choice {
-                Choice::Rock => Outcome::Draw,
-                Choice::Paper => Outcome::TakeTheL,
-                Choice::Scissors => Outcome::TakeTheW,
-            },
-            Choice::Paper => match elf_choice {
-                Choice::Rock => Outcome::TakeTheW,
-                Choice::Paper => Outcome::Draw,
-                Choice::Scissors => Outcome::TakeTheL,
-            },
-            Choice::Scissors => match elf_choice {
-                Choice::Rock => Outcome::TakeTheL,
-                Choice::Paper => Outcome::TakeTheW,
-                Choice::Scissors => Outcome::Draw,
-            },
-        }
-    }
 }
 
 impl FromStr for Choice {
