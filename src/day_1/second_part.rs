@@ -68,7 +68,7 @@ impl TreeO {
 }
 
 #[allow(dead_code)]
-fn find_largest_calorie_held_by_an_elf(filename: &str) -> String {
+fn find_sum_of_calories_carried_highest_by_three_elves(filename: &str) -> String {
     let file = File::open(filename).unwrap();
     let reader = BufReader::new(file);
 
@@ -110,35 +110,35 @@ mod tests {
     #[test]
     fn should_find_largest_if_input_in_ascending() {
         let file_path = "./inputs/day_1/mocks/asc.txt";
-        let result = find_largest_calorie_held_by_an_elf(file_path);
+        let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
         assert_eq!(result, "120");
     }
 
     #[test]
     fn should_find_largest_if_input_in_descending() {
         let file_path = "./inputs/day_1/mocks/desc.txt";
-        let result = find_largest_calorie_held_by_an_elf(file_path);
+        let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
         assert_eq!(result, "130");
     }
 
     #[test]
     fn should_find_largest_if_input_in_ascending_with_empty_line_at_end() {
         let file_path = "./inputs/day_1/mocks/asc_end_empty_line.txt";
-        let result = find_largest_calorie_held_by_an_elf(file_path);
+        let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
         assert_eq!(result, "120");
     }
 
     #[test]
     fn should_find_largest_if_input_in_descending_with_empty_line_at_end() {
         let file_path = "./inputs/day_1/mocks/desc_end_empty_line.txt";
-        let result = find_largest_calorie_held_by_an_elf(file_path);
+        let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
         assert_eq!(result, "130");
     }
 
     // #[test]
     // fn the_actual_test() {
     //     let file_path = "./inputs/day_1/aoc_input.txt";
-    //     let result = find_largest_calorie_held_by_an_elf(file_path);
+    // let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
     //     assert_eq!(result, "100");
     // }
 }
