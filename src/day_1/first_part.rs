@@ -1,5 +1,6 @@
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::BufRead;
+
+use crate::read_file;
 
 /// Working is as follows.
 ///
@@ -19,8 +20,9 @@ use std::io::{BufRead, BufReader};
 /// This was my initial plan, but the problem can be solved without needing an array.
 #[allow(dead_code)]
 fn find_largest_calorie_held_by_an_elf(filename: &str) -> String {
-    let file = File::open(filename).unwrap();
-    let reader = BufReader::new(file);
+    // let file = File::open(filename).unwrap();
+    // let reader = BufReader::new(file);
+    let reader = read_file(filename);
 
     let mut previous_elf_calories_counted: Option<u32> = None;
     let mut current_elf_calories_counter: u32 = 0;
