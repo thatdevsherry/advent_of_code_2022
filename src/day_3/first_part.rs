@@ -5,14 +5,14 @@ use crate::read_file;
 const CHARS: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 #[derive(Debug, PartialEq)]
-struct MyBinarySearchTree {
+pub struct MyBinarySearchTree {
     left: Option<Box<MyBinarySearchTree>>,
     right: Option<Box<MyBinarySearchTree>>,
     data: u32,
 }
 
 impl MyBinarySearchTree {
-    fn new(input: u32) -> Self {
+    pub fn new(input: u32) -> Self {
         MyBinarySearchTree {
             left: None,
             right: None,
@@ -20,7 +20,7 @@ impl MyBinarySearchTree {
         }
     }
 
-    fn push(&mut self, input: u32) {
+    pub fn push(&mut self, input: u32) {
         if input < self.data && self.left.is_none() {
             let branch = MyBinarySearchTree::new(input);
             self.left = Some(Box::new(branch))
@@ -39,7 +39,7 @@ impl MyBinarySearchTree {
         }
     }
 
-    fn does_item_exist(&self, input: u32) -> bool {
+    pub fn does_item_exist(&self, input: u32) -> bool {
         if input < self.data && self.left.is_some() {
             self.left.as_ref().unwrap().does_item_exist(input)
         } else if input > self.data && self.right.is_some() {
@@ -66,7 +66,7 @@ impl FromStr for MyBinarySearchTree {
     }
 }
 
-fn get_priority_of_item(input: char) -> u8 {
+pub fn get_priority_of_item(input: char) -> u8 {
     let matched_char_index = CHARS.chars().position(|x| x == input).unwrap();
     u8::try_from(matched_char_index + 1).unwrap()
 }
