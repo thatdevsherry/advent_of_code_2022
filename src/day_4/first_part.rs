@@ -3,15 +3,22 @@ use std::{io::BufRead, str::FromStr};
 use crate::read_file;
 
 #[derive(Debug)]
-struct AssignmentPair {
+pub struct AssignmentPair {
     start: u8,
     end: u8,
 }
 
 impl AssignmentPair {
-    fn is_a_range_subset_of_other(first_range: Self, second_range: Self) -> bool {
+    pub fn is_a_range_subset_of_other(first_range: &Self, second_range: &Self) -> bool {
         (first_range.start <= second_range.start && second_range.end <= first_range.end)
             || (first_range.start >= second_range.start && second_range.end >= first_range.end)
+    }
+
+    pub fn has_overlap(first_range: &Self, second_range: &Self) -> bool {
+        // Now this was interesting, instead of matching all cases that DO overlap,
+        // It ended up being easier to just check for cases that DO NOT overlap, and
+        // that case was super concise.
+        !(first_range.end < second_range.start || first_range.start > second_range.end)
     }
 }
 
@@ -47,7 +54,7 @@ fn number_of_assignment_pairs_fully_containing_other(filename: &str) -> u32 {
         println!("First section range: {:?}", first_section_range);
         println!("Second section range: {:?}", second_section_range);
         let is_a_pair_subset_of_other =
-            AssignmentPair::is_a_range_subset_of_other(first_section_range, second_section_range);
+            AssignmentPair::is_a_range_subset_of_other(&first_section_range, &second_section_range);
         println!("Is subset: {}", is_a_pair_subset_of_other);
         if is_a_pair_subset_of_other {
             number_of_pairs_completely_overlapping_the_other += 1
@@ -69,6 +76,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn actual_test() {
         let file_path = "./inputs/day_4/aoc_input.txt";
         let result = number_of_assignment_pairs_fully_containing_other(file_path);
