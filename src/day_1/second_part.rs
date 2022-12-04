@@ -135,10 +135,11 @@ mod tests {
         assert_eq!(result, "130");
     }
 
-    // #[test]
-    // fn the_actual_test() {
-    //     let file_path = "./inputs/day_1/aoc_input.txt";
-    // let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
-    //     assert_eq!(result, "100");
-    // }
+    #[test]
+    #[ignore]
+    fn the_actual_test() {
+        let file_path = "./inputs/day_1/aoc_input.txt";
+        let result = find_sum_of_calories_carried_highest_by_three_elves(file_path);
+        assert_eq!(result, "100");
+    }
 }

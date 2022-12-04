@@ -130,10 +130,11 @@ mod tests {
         assert_eq!(result, "15");
     }
 
-    // #[test]
-    // fn actual_test() {
-    //     let file_path = "./inputs/day_2/aoc_input.txt";
-    //     let result = get_score_according_to_strategy_guide(file_path);
-    //     assert_eq!(result, "15");
-    // }
+    #[test]
+    #[ignore]
+    fn actual_test() {
+        let file_path = "./inputs/day_2/aoc_input.txt";
+        let result = get_score_according_to_strategy_guide(file_path);
+        assert_eq!(result, "15");
+    }
 }

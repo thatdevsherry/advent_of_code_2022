@@ -125,10 +125,11 @@ mod tests {
         assert_eq!(result, "157")
     }
 
-    // #[test]
-    // fn actual_test() {
-    //     let file_path = "./inputs/day_3/aoc_input.txt";
-    //     let result = sum_of_item_priorities(file_path);
-    //     assert_eq!(result, "157")
-    // }
+    #[test]
+    #[ignore]
+    fn actual_test() {
+        let file_path = "./inputs/day_3/aoc_input.txt";
+        let result = sum_of_item_priorities(file_path);
+        assert_eq!(result, "157")
+    }
 }

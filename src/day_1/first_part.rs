@@ -105,10 +105,11 @@ mod tests {
         assert_eq!(result, "100");
     }
 
-    // #[test]
-    // fn the_actual_test() {
-    //     let file_path = "./inputs/day_1/aoc_input.txt";
-    //     let result = find_largest_calorie_held_by_an_elf(file_path);
-    //     assert_eq!(result, "100");
-    // }
+    #[test]
+    #[ignore]
+    fn the_actual_test() {
+        let file_path = "./inputs/day_1/aoc_input.txt";
+        let result = find_largest_calorie_held_by_an_elf(file_path);
+        assert_eq!(result, "100");
+    }
 }
