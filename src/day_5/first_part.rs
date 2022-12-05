@@ -2,7 +2,7 @@ use std::{io::BufRead, str::FromStr};
 
 use crate::read_file;
 
-struct Crane;
+pub struct Crane;
 
 impl Crane {
     fn perform_operation(operation: &Operation, dock: &mut Vec<Vec<char>>) {
@@ -18,7 +18,7 @@ impl Crane {
         }
     }
 
-    fn get_top_crates(dock: Vec<Vec<char>>) -> String {
+    pub fn get_top_crates(dock: Vec<Vec<char>>) -> String {
         let mut top_crates = "".to_string();
         for stack in dock {
             let top_crate_of_stack = stack.last().unwrap().to_owned();
@@ -29,10 +29,10 @@ impl Crane {
 }
 
 #[derive(Debug)]
-struct Operation {
-    move_repetition: u8,
-    move_from_stack: u8,
-    destination_stack: u8,
+pub struct Operation {
+    pub move_repetition: u8,
+    pub move_from_stack: u8,
+    pub destination_stack: u8,
 }
 
 impl FromStr for Operation {
