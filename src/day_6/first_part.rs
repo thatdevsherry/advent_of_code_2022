@@ -35,7 +35,7 @@ fn parse_signal_start_location(data_stream: String) -> u32 {
     u32::try_from(buf.len()).unwrap()
 }
 
-fn has_duplicates(chars: &[char]) -> bool {
+pub fn has_duplicates(chars: &[char]) -> bool {
     let mut set: HashSet<char> = HashSet::new();
 
     let mut has_duplicate = false;
