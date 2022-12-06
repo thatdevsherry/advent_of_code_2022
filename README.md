@@ -11,3 +11,4 @@ Ref: [Advent of Code](https://adventofcode.com/)
 - [x] Day 3
 - [x] Day 4
 - [x] Day 5
+- [x] Day 6
