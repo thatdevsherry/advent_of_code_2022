@@ -1,16 +1,16 @@
-use std::{io::BufRead, str::FromStr};
+use std::{collections::HashMap, io::BufRead, str::FromStr};
 
 use crate::read_file;
 
 #[derive(Debug, PartialEq, Eq)]
-enum DirectoryContents {
+enum DirectoryContent {
     File(File),
     Directory(Directory),
 }
 #[derive(Debug, PartialEq, Eq)]
 struct Directory {
     name: String,
-    contents: Vec<DirectoryContents>,
+    contents: HashMap<String, DirectoryContent>,
     directory_size: u32,
 }
 
@@ -18,9 +18,13 @@ impl Directory {
     fn new(name: String) -> Self {
         Directory {
             name,
-            contents: Vec::new(),
+            contents: HashMap::new(),
             directory_size: 0,
         }
+    }
+
+    fn add_content(&mut self, name: String, content: DirectoryContent) {
+        self.contents.insert(name, content);
     }
 }
 
@@ -69,8 +73,6 @@ impl Command {
             false => s,
         }
     }
-
-    fn execute(&self) {}
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -126,7 +128,7 @@ fn run_day_seven_part_one(filename: &str) -> u32 {
     let first_command = Command::from_str(&first_line).unwrap();
     debug_assert!(first_command == Command::ChangeDirectory("/".to_string()));
 
-    let starting_directory;
+    let mut starting_directory;
     if let Command::ChangeDirectory(ref directory_name) = first_command {
         starting_directory = Directory::new(directory_name.to_owned());
     } else {
@@ -136,7 +138,9 @@ fn run_day_seven_part_one(filename: &str) -> u32 {
     println!("Starting dir: {starting_directory:?}");
 
     let mut command_last_read = first_command;
-    let mut ls_output_buf: Vec<String> = Vec::new();
+    let mut traversal_stack: Vec<&mut Directory> = vec![&mut starting_directory];
+    let mut nested_indicator = "-".to_string();
+
     for line in line_iter {
         let line_data = line.unwrap();
         // check if last command read was `ls`. If so, do not read the next commands
@@ -144,34 +148,50 @@ fn run_day_seven_part_one(filename: &str) -> u32 {
         // start with "$", which would mean the `ls` output is complete and we have
         // received a new command.
         if !line_data.starts_with('$') && command_last_read == Command::ListContents {
-            // println!("LS OUTPUT: {line_data:?}");
-            ls_output_buf.push(line_data);
-            continue;
-        }
-
-        if command_last_read == Command::ListContents {
-            println!("Work on LS");
-            for ls_output in &ls_output_buf {
-                let ls_output_type = ListCommandOutput::from_str(ls_output).unwrap();
-                match ls_output_type {
-                    ListCommandOutput::Directory(name) => {
-                        let dir = Directory::new(name);
-                        println!("{dir:?}");
-                    }
-                    ListCommandOutput::File(name, size) => {
-                        let file = File::new(name, size);
-                        println!("{file:?}");
-                    }
+            let ls_command_output_type = ListCommandOutput::from_str(&line_data).unwrap();
+            match ls_command_output_type {
+                ListCommandOutput::Directory(name) => {
+                    let dir = Directory::new(name.clone());
+                    traversal_stack
+                        .last_mut()
+                        .unwrap()
+                        .add_content(name, DirectoryContent::Directory(dir));
                 }
-            }
-            ls_output_buf.clear();
+                ListCommandOutput::File(name, size) => {
+                    let file = File::new(name.clone(), size);
+                    traversal_stack
+                        .last_mut()
+                        .unwrap()
+                        .add_content(name, DirectoryContent::File(file));
+                }
+            };
+            continue;
         }
 
         let command = Command::from_str(&line_data).unwrap();
         println!("{command:?}");
-        command.execute();
+        if let Command::ChangeDirectory(ref direction) = command {
+            if direction == ".." {
+                nested_indicator.pop();
+                traversal_stack.pop();
+            } else {
+                nested_indicator.push('-');
+                let dir = traversal_stack
+                    .last_mut()
+                    .unwrap()
+                    .contents
+                    .get_mut(direction)
+                    .unwrap();
+                match dir {
+                    DirectoryContent::Directory(dir) => traversal_stack.push(dir),
+                    _ => panic!(),
+                };
+            }
+        }
         command_last_read = command;
     }
+    println!("The whole thing");
+    println!("{starting_directory:?}");
 
     0
 }
