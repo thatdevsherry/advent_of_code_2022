@@ -12,3 +12,4 @@ Ref: [Advent of Code](https://adventofcode.com/)
 - [x] Day 4
 - [x] Day 5
 - [x] Day 6
+- [ ] Day 7 (I couldn't figure this out myself. Learned that I should prefer iteration over recursion)
